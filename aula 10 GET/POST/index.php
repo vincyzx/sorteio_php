@@ -1,10 +1,8 @@
 <?php
-// Inicializa variáveis para armazenar dados do formulário e mensagens de erro
 $nome = $email = $senha = $confirmar_senha = '';
 $erros = [];
 $sucesso = false;
 
-// Função para limpar os dados do formulário
 function limpar_dados($dados) {
     $dados = trim($dados);
     $dados = stripslashes($dados);
@@ -12,16 +10,13 @@ function limpar_dados($dados) {
     return $dados;
 }
 
-// Verifica se a requisição é do tipo POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validação do campo "Nome Completo"
     if (empty($_POST["nome"])) {
         $erros['nome'] = "O nome completo é obrigatório.";
     } else {
         $nome = limpar_dados($_POST["nome"]);
     }
 
-    // Validação do campo "E-mail"
     if (empty($_POST["email"])) {
         $erros['email'] = "O e-mail é obrigatório.";
     } else {
@@ -31,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Validação da senha
     if (empty($_POST["senha"])) {
         $erros['senha'] = "A senha é obrigatória.";
     } else {
@@ -41,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Validação da confirmação de senha
     if (empty($_POST["confirmar-senha"])) {
         $erros['confirmar_senha'] = "A confirmação de senha é obrigatória.";
     } else {
@@ -51,13 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Se não houverem erros, o formulário é válido
     if (empty($erros)) {
-        // Exemplo: Simula o salvamento dos dados (em um banco de dados, por exemplo)
-        // A senha deve ser hasheada antes de ser salva
         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
         
-        // Exibir mensagem de sucesso
         $sucesso = true;
     }
 }
@@ -75,7 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilos personalizados para o projeto */
         :root {
             --cor-fundo: #1B1B1B;
             --vermelho-vibrante: #FF3B30;
@@ -83,20 +71,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             --cinza-claro: #E0E0E0;
         }
         
-        /* Configuração de fontes globais */
         body {
             font-family: 'Poppins', sans-serif;
             color: white;
             background-color: var(--cor-fundo);
         }
         
-        /* Título com fonte impactante */
         .titulo-impacto {
             font-family: 'Bebas Neue', sans-serif;
             letter-spacing: 0.1em;
         }
         
-        /* Efeito de label flutuante */
         .float-label input:focus + .label,
         .float-label input:not(:placeholder-shown) + .label {
             @apply -top-2 text-xs font-semibold text-white;
@@ -106,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             @apply transition-all duration-300 ease-in-out absolute left-0 top-1/2 -translate-y-1/2 cursor-text pointer-events-none text-gray-400;
         }
         
-        /* Animação para mensagens de erro */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
@@ -196,12 +180,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             offset: 50
         });
 
-        // A lógica de validação do JavaScript foi removida daqui, pois agora é feita no PHP.
-        // O redirecionamento após o sucesso pode ser feito via PHP.
-        // Se desejar um redirecionamento com delay, você pode usar JavaScript após o sucesso
         <?php if ($sucesso): ?>
             setTimeout(() => {
-                window.location.href = 'site.php'; // Altere 'site.html' para a página de destino
+                window.location.href = 'site.php';
             }, 3000);
         <?php endif; ?>
     </script>
